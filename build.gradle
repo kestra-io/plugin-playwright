@@ -31,6 +31,17 @@ java {
 group = "io.kestra.plugin"
 description = 'Playwright plugin for Kestra'
 
+final playwrightVersion = "1.63.0"
+
+configurations.configureEach {
+    resolutionStrategy.eachDependency { details ->
+        // Playwright requires every client and driver module to match the remote server version exactly.
+        if (details.requested.group == "com.microsoft.playwright") {
+            details.useVersion playwrightVersion
+        }
+    }
+}
+
 tasks.withType(JavaCompile).configureEach {
     options.encoding = "UTF-8"
     options.compilerArgs.add("-parameters")
@@ -49,6 +60,9 @@ dependencies {
     annotationProcessor group: "io.kestra", name: "processor", version: kestraVersion
     compileOnly group: "io.kestra", name: "core", version: kestraVersion
     compileOnly group: "io.kestra", name: "script", version: kestraVersion
+
+    // playwright
+    implementation "com.microsoft.playwright:playwright:$playwrightVersion"
 }
 
 
@@ -87,6 +101,8 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-engine"
     testImplementation "org.hamcrest:hamcrest"
     testImplementation "org.hamcrest:hamcrest-library"
+    testImplementation "org.testcontainers:junit-jupiter"
+    testImplementation "org.testcontainers:testcontainers"
 }
 
 /**********************************************************************************************************************\
@@ -162,6 +178,11 @@ jar {
 shadowJar {
     archiveClassifier.set(null)
     mergeServiceFiles()
+
+    // Ship only the Linux Node drivers used by Kestra workers.
+    exclude "driver/mac/**"
+    exclude "driver/mac-arm64/**"
+    exclude "driver/win32_x64/**"
 }
 
 /**********************************************************************************************************************\

@@ -1,8 +1,8 @@
 group: io.kestra.plugin.playwright
 name: "playwright"
 title: "Playwright"
-description: "Playwright plugin for Kestra"
-body: ""
+description: "Run browser checks with Playwright from Kestra flows"
+body: "Connect to a remote Playwright server, run ordered browser interactions and assertions, and store screenshots and traces in Kestra internal storage."
 videos: []
 createdBy: "Kestra Core Team"
 managedBy: "Kestra Core Team"
