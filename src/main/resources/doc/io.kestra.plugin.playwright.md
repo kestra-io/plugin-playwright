@@ -13,6 +13,7 @@ docker run --rm -p 3000:3000 mcr.microsoft.com/playwright:v1.63.0-noble \
   npx -y playwright@1.63.0 run-server --port 3000 --host 0.0.0.0
 ```
 
+<!-- nosemgrep: javascript.lang.security.detect-insecure-websocket.detect-insecure-websocket -->
 Set `serverUrl` to the resulting endpoint, such as `ws://playwright:3000/`, or use `wss://` when the server is behind TLS. Store the endpoint in a Kestra secret if it contains credentials or other sensitive connection data.
 
 Use the worker's network egress policy to allow only trusted Playwright endpoints. Scheme validation does not restrict the destination host. Starting a local Node driver for every task run adds startup time.
