@@ -142,7 +142,7 @@ public class Check extends Task implements RunnableTask<Check.Output> {
     @Schema(
         title = "Playwright server URL",
         description = """
-            `ws://` or `wss://` endpoint of a remote Playwright server. Run the matching server with
+            WebSocket endpoint (`ws` or `wss` scheme) of a remote Playwright server. Run the matching server with
             `mcr.microsoft.com/playwright:v1.63.0-noble` and
             `npx -y playwright@1.63.0 run-server --port 3000 --host 0.0.0.0`.
             """
@@ -690,6 +690,7 @@ public class Check extends Task implements RunnableTask<Check.Output> {
         } catch (IllegalArgumentException ignored) {
             // Do not include the URL in the error: it may contain credentials or tokens.
         }
+        // nosemgrep: javascript.lang.security.detect-insecure-websocket.detect-insecure-websocket -- message text only, no connection is opened
         throw new IllegalArgumentException("serverUrl must be an absolute ws:// or wss:// URL with a host");
     }
 
