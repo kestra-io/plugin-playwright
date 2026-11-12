@@ -31,7 +31,7 @@ java {
 group = "io.kestra.plugin"
 description = 'Playwright plugin for Kestra'
 
-final playwrightVersion = "1.63.0"
+final playwrightVersion = "1.64.0"
 
 configurations.configureEach {
     resolutionStrategy.eachDependency { details ->
