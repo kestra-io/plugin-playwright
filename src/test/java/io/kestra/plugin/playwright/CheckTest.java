@@ -41,7 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @KestraTest
-@Testcontainers
+@Testcontainers(disabledWithoutDocker = true)
 class CheckTest {
     private static final String IMAGE = "mcr.microsoft.com/playwright:v1.63.0-noble";
 
